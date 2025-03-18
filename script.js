@@ -1,4 +1,3 @@
-//your JS code here. If required.
 // Get all OTP input fields
 const inputs = document.querySelectorAll(".code");
 
@@ -9,14 +8,18 @@ inputs.forEach((input, index) => {
 
     // Move to next field if a digit is entered
     if (value && index < inputs.length - 1) {
-      inputs[index + 1].focus();
+      setTimeout(() => {
+        inputs[index + 1].focus();
+      }, 10);
     }
   });
 
   input.addEventListener("keydown", (e) => {
     // Handle backspace key
     if (e.key === "Backspace" && index > 0 && !e.target.value) {
-      inputs[index - 1].focus();
+      setTimeout(() => {
+        inputs[index - 1].focus();
+      }, 10);
     }
   });
 
@@ -26,13 +29,15 @@ inputs.forEach((input, index) => {
 
     // Fill fields automatically when pasting
     pasteData.split("").forEach((char, i) => {
-      if (!isNaN(char)) {
+      if (!isNaN(char) && i < inputs.length) {
         inputs[i].value = char;
       }
     });
 
     // Move focus to next empty field after paste
     const nextEmptyIndex = pasteData.length < inputs.length ? pasteData.length : inputs.length - 1;
-    inputs[nextEmptyIndex].focus();
+    setTimeout(() => {
+      inputs[nextEmptyIndex].focus();
+    }, 10);
   });
 });
